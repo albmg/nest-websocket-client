@@ -1,4 +1,6 @@
-import { Manager, Socket } from "socket.io-client"
+import { Manager, Socket } from "socket.io-client";
+
+let socket: Socket;
 
 export const connecToServer = ( token: string ) => {
 
@@ -9,15 +11,16 @@ export const connecToServer = ( token: string ) => {
         }
     });
 
-    const socket = manager.socket('/');
+    socket?.removeAllListeners();
+    socket = manager.socket('/');
     //console.log({ socket });
 
-    addListeners( socket );
+    addListeners();
     
 }
 
 
-const addListeners = ( socket: Socket ) => {    
+const addListeners = ( ) => {    
     // ! Siempre va a existir, xq lo estoy creando. No manejo nulos.
     const clientsUl = document.querySelector('#clients-ul')!;    
     const messageForm = document.querySelector<HTMLFormElement>('#message-form')
